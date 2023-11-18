@@ -10,4 +10,9 @@
             <to-view-id>main.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
+    <application>
+        <message-bundle>
+            Messages
+        </message-bundle>
+    </application>
 </faces-config>

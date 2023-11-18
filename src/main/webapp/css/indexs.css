@@ -44,8 +44,6 @@ tbody tr td {
     text-align: center;
     vertical-align: middle;
     margin: auto;
-    background-color: #3B4252;
-    border-radius: 20px;
 }
 
 form {
@@ -63,7 +61,7 @@ form table {
     border-spacing: 10px;
 }
 
-form input {
+form input, form .ui-spinner {
     width: 70%;
     height: 30px;
     font-size: 15pt;
@@ -77,7 +75,7 @@ form select {  /* Каскадирование - часть 1 */
     font-family: inherit;
 }
 
-form input, form select {   /* Каскадирование - часть 2 */
+form input, form select, form .ui-spinner-input {   /* Каскадирование - часть 2 */
     border: 1px solid #8FBCBB;
     border-radius: 5px;
     background-color: #4C566A;
@@ -156,6 +154,47 @@ tfoot {
     color: #81A1C1;
     text-decoration: none;
     font-size: 17pt;
+}
+
+.datetime-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.datetime-element {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 120px;
+    height: 200px;
+    background-color: #3B4252;
+    border-radius: 20px;
+    color: #81A1C1;
+    font-size: 23pt;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.datetime-separator {
+    margin: 0 10px;
+    color: #8FBCBB;
+    font-size: 32pt;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    animation: blinker 2s linear infinite;
+}
+
+@keyframes blinker {
+    50% {
+        opacity: 0;
+    }
+}
+
+.validation-error {
+    color: #BF616A;
+    display: block;
+    width: 70%;
+    margin: auto;
+    text-align: start;
 }
 
 @media (max-width: 700px) {  /* Селектор дочерних элементов */

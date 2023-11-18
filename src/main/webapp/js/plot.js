@@ -1,0 +1,155 @@
+class Point {
+  constructor(x, y, r) {
+    this.x = x;
+    this.y = y;
+    this.r = r;
+  }
+
+  get hit() {
+    const { x, y, r } = this;
+    if (x > 0 && y > 0) {
+      return y <= -x + (r / 2);
+    } else if (x <= 0 && y >= 0) {
+      return y <= r && x >= -r;
+    } else if (x < 0 && y < 0) {
+      return false;
+    } else {
+      return x**2 + y**2 <= r;
+    }
+  }
+
+  _calculateCoordOnPlot(coord, plotR) {
+    return (coord / this.r) * plotR;
+  }
+
+  getCoordsOnPlot(plotR) {
+    return [
+      this._calculateCoordOnPlot(this.x, plotR),
+      this._calculateCoordOnPlot(this.y, plotR),
+    ];
+  }
+}
+
+class Plot {
+
+  _r = 1;
+
+  _width = 400;
+
+  _height = 400;
+
+  _cursorPosition = {
+    x: null,
+    y: null,
+  };
+
+  _points = [];
+
+  _chart = null;
+
+  _colors = {
+    area: '#5E81AC',
+    missPoint: '#BF616A',
+    hitPoint: '#A3BE8C',
+  }
+
+  _pointSizePx = 10
+
+  constructor(r, points) {
+    this._r = r;
+    this._points = points;
+    this._draw();
+    this._bindEvents();
+  }
+
+  set r(value) {
+    this._r = value;
+    this._draw();
+  }
+
+  get _options() {
+    const r = this._r;
+    return {
+      target: "#plot",
+      width: this._width,
+      height: this._height,
+      xAxis: { domain: [-3, 3] },
+      yAxis: { domain: [-3, 3] },
+      grid: true,
+      data: [
+        {
+          fn: `-x + ${r}/2`,
+          closed: true,
+          skipTip: true,
+          range: [0, r/2],
+          color: this._colors.area,
+        },
+        {
+          fn: `${r}`,
+          closed: true,
+          skipTip: true,
+          range: [-r, 0],
+          color: this._colors.area,
+        },
+        {
+          fn: `-sqrt(${r}^2 - x^2)`,
+          closed: true,
+          skipTip: true,
+          range: [0, r],
+          color: this._colors.area,
+        },
+        this._getPointsOptions('hit'),
+        this._getPointsOptions('miss'),
+      ],
+    };
+  }
+
+  _getPointsOptions(type) {
+    let points, color;
+    if (type === 'hit') {
+      points = this._points.filter(point => point.hit);
+      color = this._colors.hitPoint
+    } else {
+      points = this._points.filter(point => !point.hit);
+      color = this._colors.missPoint;
+    }
+
+    return {
+      points: points.map(point => point.getCoordsOnPlot(this._r)),
+      fnType: "points",
+      graphType: "scatter",
+      color: color,
+      attr: {
+        "stroke-width": `${this._pointSizePx}px`,
+      },
+    };
+  }
+
+  _draw() {
+    this._chart = functionPlot(this._options);
+  }
+
+  _bindEvents() {
+    document
+      .getElementById("plot")
+      .addEventListener("click", () => alert(`${this._cursorPosition.x} ${this._cursorPosition.y}`));
+
+    this._chart.on("mousemove", (coords) => {
+      this._cursorPosition = coords;
+    });
+  }
+}
+
+const points = [];
+
+const addPoint = (x, y, r) => {
+  points.push(new Point(x, y, r));
+}
+
+window.onload = () => {
+  let plot = new Plot(1, points);
+
+  document.getElementById('r-coord-input').addEventListener('change', event => {
+    plot.r = event.target.value;
+  });
+};

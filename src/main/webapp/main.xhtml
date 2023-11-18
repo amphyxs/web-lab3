@@ -8,11 +8,104 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
 >
 <h:head>
-
+    <link rel="icon" type="image/png" href="favicon.png"/>
+    <link href="css/indexs.css" rel="stylesheet" type="text/css"/>
+    <script src="https://unpkg.com/function-plot/dist/function-plot.js"></script>
+    <script src="js/plot.js"></script>
+    <title>Lab 3</title>
 </h:head>
 <h:body>
     <f:view>
-        <h:outputLabel value="Main"/>
+        <table>
+            <thead>
+            <tr>
+                <td>
+                    <h1>Lab 3</h1>
+                </td>
+                <td id="lab-info">
+                    Сандов Кирилл Алексеевич / P3213 / Вариант 2310
+                </td>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="coords-info">
+                        <div class="coords-interactive-container" id="plot"></div>
+                    </td>
+                    <td>
+                        <h:form id="coords-form" method="post" action="${pageContext.request.contextPath}/controller">
+                            <table>
+                                <tr>
+                                    <td class="form-label">X:</td>
+                                    <td>
+                                        <h:inputText id="x-coord-input" value="#{point.x}">
+                                            <f:validateRequired/>
+                                            <f:validateDoubleRange minimum="-2.999999999" maximum="2.999999999"/>
+                                        </h:inputText>
+                                        <h:message for="x-coord-input" styleClass="validation-error"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="form-label">Y:</td>
+                                    <td>
+                                        <p:spinner id="y-coord-input" value="#{point.y}" stepFactor="1" min="-3" max="3">
+                                            <f:validateRequired/>
+                                            <f:validateDoubleRange minimum="-2.999999999" maximum="2.999999999"/>
+                                        </p:spinner>
+                                        <h:message for="y-coord-input" styleClass="validation-error"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="form-label">R:</td>
+                                    <td>
+                                        <p:spinner id="r-coord-input" value="#{point.r}" stepFactor="0.1" min="0.1" max="3">
+                                            <f:validateRequired/>
+                                            <f:validateDoubleRange minimum="0.1" maximum="3"/>
+                                        </p:spinner>
+                                        <h:message for="r-coord-input" styleClass="validation-error"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="hidden" name="timezone" id="timezone-input" value="UTC"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        <h:commandButton styleClass="coords-btn" value="Отправить" action="controller"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                </tr>
+                            </table>
+                        </h:form>
+                    </td>
+                </tr>
+                <tr class="results-row">
+                    <td colspan="2">
+                        <table class="results-table">
+                            <thead>
+                            <tr>
+                                <td>X</td>
+                                <td>Y</td>
+                                <td>R</td>
+                                <td>Попал</td>
+                                <td>Создано</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <script>
+                                    addPoint(1, 1, 1);
+                                    addPoint(2, 1, 2);
+                                </script>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </f:view>
 </h:body>
 </html>
