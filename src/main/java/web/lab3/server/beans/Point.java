@@ -38,4 +38,8 @@ public class Point implements Serializable {
     public void setX(Double x) {
         this.x = x;
     }
+
+    public void addResult() {
+        System.out.printf("%f %f %f\n", this.x, this.y, this.r);
+    }
 }

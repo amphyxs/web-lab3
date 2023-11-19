@@ -51,9 +51,11 @@ class Plot {
     area: '#5E81AC',
     missPoint: '#BF616A',
     hitPoint: '#A3BE8C',
-  }
+  };
 
-  _pointSizePx = 10
+  _pointSizePx = 10;
+
+  _xValues = [-2, -1.5, -1, -0.5, 0, 0.5, 1, 1.5];
 
   constructor(r, points) {
     this._r = r;
@@ -104,6 +106,24 @@ class Plot {
     };
   }
 
+  _convertCoords(coords) {
+    let { x, y } = coords;
+
+    const lastBound = this._xValues[this._xValues.length - 1];
+    if (x > lastBound) {
+      x = lastBound
+    } else {
+      for (const coordBound of this._xValues) {
+        if (x <= coordBound) {
+          x = coordBound;
+          break;
+        }
+      }
+    }
+
+    this._cursorPosition = { x, y };
+  }
+
   _getPointsOptions(type) {
     let points, color;
     if (type === 'hit') {
@@ -132,11 +152,21 @@ class Plot {
   _bindEvents() {
     document
       .getElementById("plot")
-      .addEventListener("click", () => alert(`${this._cursorPosition.x} ${this._cursorPosition.y}`));
+      .addEventListener("click", () => this._updateForm());
 
-    this._chart.on("mousemove", (coords) => {
-      this._cursorPosition = coords;
+    this._chart
+      .on("mousemove", (coords) => this._convertCoords(coords));
+  }
+
+  _updateForm() {
+    document.getElementsByName('coords-form:x-coord-input').forEach(option => {
+      if (option.value.toString() === this._cursorPosition.x.toString()) {
+        option.setAttribute('checked', 'checked');
+      } else {
+        option.removeAttribute('checked');
+      }
     });
+    document.getElementById('coords-form:y-coord-input').value = this._cursorPosition.y;
   }
 }
 
@@ -145,11 +175,3 @@ const points = [];
 const addPoint = (x, y, r) => {
   points.push(new Point(x, y, r));
 }
-
-window.onload = () => {
-  let plot = new Plot(1, points);
-
-  document.getElementById('r-coord-input').addEventListener('change', event => {
-    plot.r = event.target.value;
-  });
-};

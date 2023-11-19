@@ -57,10 +57,6 @@ form {
     font-family: inherit;
 }
 
-form table {
-    border-spacing: 10px;
-}
-
 form input, form .ui-spinner {
     width: 70%;
     height: 30px;
@@ -92,8 +88,9 @@ form input:disabled {
     height: 34px;
 }
 
-form table {
+form > table {
     height: clamp(20vw, 200px, 100vw);
+    border-spacing: 10px;
 }
 
 table img {

@@ -9,9 +9,10 @@
 >
 <h:head>
     <link rel="icon" type="image/png" href="favicon.png"/>
-    <link href="css/indexs.css" rel="stylesheet" type="text/css"/>
+    <link href="css/indexss.css" rel="stylesheet" type="text/css"/>
     <script src="https://unpkg.com/function-plot/dist/function-plot.js"></script>
-    <script src="js/plot.js"></script>
+    <script src="js/plotx.js"></script>
+    <script src="js/mainx.js"></script>
     <title>Lab 3</title>
 </h:head>
 <h:body>
@@ -38,46 +39,54 @@
                                 <tr>
                                     <td class="form-label">X:</td>
                                     <td>
-                                        <h:inputText id="x-coord-input" value="#{point.x}">
+                                        <h:selectOneRadio id="x-coord-input" name="x" value="#{point.x}">
+                                            <f:selectItem itemValue="-2" itemLabel="-2" />
+                                            <f:selectItem itemValue="-1.5" itemLabel="-1.5" />
+                                            <f:selectItem itemValue="-1" itemLabel="-1" />
+                                            <f:selectItem itemValue="-0.5" itemLabel="-0.5" />
+                                            <f:selectItem itemValue="0" itemLabel="0" />
+                                            <f:selectItem itemValue="0.5" itemLabel="0.5" />
+                                            <f:selectItem itemValue="1" itemLabel="1" />
+                                            <f:selectItem itemValue="1.5" itemLabel="1.5" />
                                             <f:validateRequired/>
-                                            <f:validateDoubleRange minimum="-2.999999999" maximum="2.999999999"/>
-                                        </h:inputText>
+                                        </h:selectOneRadio>
                                         <h:message for="x-coord-input" styleClass="validation-error"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="form-label">Y:</td>
                                     <td>
-                                        <p:spinner id="y-coord-input" value="#{point.y}" stepFactor="1" min="-3" max="3">
+                                        <h:inputText id="y-coord-input" name="y" value="#{point.y}">
                                             <f:validateRequired/>
                                             <f:validateDoubleRange minimum="-2.999999999" maximum="2.999999999"/>
-                                        </p:spinner>
+                                        </h:inputText>
                                         <h:message for="y-coord-input" styleClass="validation-error"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="form-label">R:</td>
                                     <td>
-                                        <p:spinner id="r-coord-input" value="#{point.r}" stepFactor="0.1" min="0.1" max="3">
-                                            <f:validateRequired/>
-                                            <f:validateDoubleRange minimum="0.1" maximum="3"/>
-                                        </p:spinner>
-                                        <h:message for="r-coord-input" styleClass="validation-error"/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input type="hidden" name="timezone" id="timezone-input" value="UTC"/>
+                                        <div id="r-coord-input">
+                                            <h:commandButton value="1" disabled="true"/>
+                                            <h:commandButton value="1.5"/>
+                                            <h:commandButton value="2"/>
+                                            <h:commandButton value="2.5"/>
+                                            <h:commandButton value="    3"/>
+                                        </div>
+                                        <h:inputText type="hidden" name="r" id="r-coord-input-real" value="#{point.r}"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td></td>
                                     <td>
-                                        <h:commandButton styleClass="coords-btn" value="Отправить" action="controller"/>
+                                        <h:commandButton styleClass="coords-btn" value="Отправить">
+                                            <f:ajax
+                                                execute="@form"
+                                                listener="#{point.addResult()}"
+                                                render="results-table coords-form"
+                                            />
+                                        </h:commandButton>
                                     </td>
-                                </tr>
-                                <tr>
-                                    <td></td>
                                 </tr>
                             </table>
                         </h:form>
@@ -85,7 +94,7 @@
                 </tr>
                 <tr class="results-row">
                     <td colspan="2">
-                        <table class="results-table">
+                        <table id="results-table">
                             <thead>
                             <tr>
                                 <td>X</td>
