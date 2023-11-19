@@ -61,7 +61,10 @@ class Plot {
     this._r = r;
     this._points = points;
     this._draw();
-    this._bindEvents();
+
+    document
+      .getElementById("plot")
+      .addEventListener("click", () => this._updateForm());
   }
 
   set r(value) {
@@ -147,23 +150,16 @@ class Plot {
 
   _draw() {
     this._chart = functionPlot(this._options);
-  }
-
-  _bindEvents() {
-    document
-      .getElementById("plot")
-      .addEventListener("click", () => this._updateForm());
 
     this._chart
       .on("mousemove", (coords) => this._convertCoords(coords));
   }
 
   _updateForm() {
+    document.getElementsByName('coords-form:x-coord-input').forEach(option => option.removeAttribute('checked'));
     document.getElementsByName('coords-form:x-coord-input').forEach(option => {
       if (option.value.toString() === this._cursorPosition.x.toString()) {
         option.setAttribute('checked', 'checked');
-      } else {
-        option.removeAttribute('checked');
       }
     });
     document.getElementById('coords-form:y-coord-input').value = this._cursorPosition.y;
