@@ -2,6 +2,7 @@ package web.lab3.server.model;
 
 import jakarta.inject.Named;
 import jakarta.persistence.*;
+import java.util.Date;
 
 @Entity
 @Named
@@ -23,6 +24,9 @@ public class PointCheck {
     @Column(name="is_hit", nullable=false)
     private boolean isHit;
 
+    @Column(name="created_at", nullable=false)
+    private Date createdAt;
+
     public PointCheck() {
 
     }
@@ -31,6 +35,14 @@ public class PointCheck {
         this.x = x;
         this.y = y;
         this.r = r;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public double getX() {
@@ -63,5 +75,13 @@ public class PointCheck {
 
     public void setHit(boolean hit) {
         isHit = hit;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 }

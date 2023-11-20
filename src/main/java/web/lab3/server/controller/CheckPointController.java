@@ -7,6 +7,7 @@ import web.lab3.server.model.PointCheck;
 import web.lab3.server.util.PointChecker;
 
 import java.io.Serializable;
+import java.util.Date;
 
 @Named
 @RequestScoped
@@ -25,6 +26,7 @@ public class CheckPointController implements Serializable {
         pointCheckResult.setX(x);
         pointCheckResult.setY(y);
         pointCheckResult.setY(r);
+        pointCheckResult.setCreatedAt(new Date(System.currentTimeMillis()));
         pointCheckResult.setHit(PointChecker.isPointIsnideArea(x, y, r));
 
         pointCheckStorageController.savePointCheck(pointCheckResult);
