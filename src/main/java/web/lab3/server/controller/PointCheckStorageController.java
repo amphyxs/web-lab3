@@ -12,16 +12,23 @@ import java.util.List;
 @Named
 @ApplicationScoped
 public class PointCheckStorageController {
-    @PersistenceContext(unitName = "default")
+    @PersistenceContext(unitName = "Eclipselink_JPA")
     private EntityManager entityManager;
 
     @Transactional
     public void savePointCheck(PointCheck pointCheck) {
-        entityManager.persist(pointCheck);
+        // Добавить точку в БД
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.merge(pointCheck);
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
+            System.out.println(e);
+        }
     }
 
-    public List<PointCheck> getCheckPointList(int start, int count) {
-        return entityManager.createQuery("SELECT p FROM PointCheckResult p", PointCheck.class)
-                .setFirstResult(start).setMaxResults(count).getResultList();
+    public List<PointCheck> getCheckPointList() {
+        return entityManager.createQuery("SELECT p FROM PointCheck p", PointCheck.class).getResultList();
     }
 }

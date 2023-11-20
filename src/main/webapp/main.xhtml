@@ -39,7 +39,7 @@
                                 <tr>
                                     <td class="form-label">X:</td>
                                     <td>
-                                        <h:selectOneRadio id="x-coord-input" name="x" value="#{point.x}">
+                                        <h:selectOneRadio id="x-coord-input" name="x" value="#{checkPointController.x}">
                                             <f:selectItem itemValue="-2" itemLabel="-2" />
                                             <f:selectItem itemValue="-1.5" itemLabel="-1.5" />
                                             <f:selectItem itemValue="-1" itemLabel="-1" />
@@ -56,7 +56,7 @@
                                 <tr>
                                     <td class="form-label">Y:</td>
                                     <td>
-                                        <h:inputText id="y-coord-input" name="y" value="#{point.y}">
+                                        <h:inputText id="y-coord-input" name="y" value="#{checkPointController.y}">
                                             <f:validateRequired/>
                                             <f:validateDoubleRange minimum="-2.999999999" maximum="2.999999999"/>
                                         </h:inputText>
@@ -73,7 +73,7 @@
                                             <h:commandButton value="2.5"/>
                                             <h:commandButton value="3"/>
                                         </div>
-                                        <h:inputText type="hidden" name="r" id="r-coord-input-real" value="#{point.r}"/>
+                                        <h:inputText type="hidden" name="r" id="r-coord-input-real" value="#{checkPointController.r}"/>
                                     </td>
                                 </tr>
                                 <tr>
@@ -82,8 +82,8 @@
                                         <h:commandButton styleClass="coords-btn" value="Отправить">
                                             <f:ajax
                                                 execute="@form"
-                                                listener="#{point.addResult()}"
-                                                render="results-table coords-form"
+                                                listener="#{checkPointController.checkPoint()}"
+                                                render="@all"
                                             />
                                         </h:commandButton>
                                     </td>
@@ -94,23 +94,32 @@
                 </tr>
                 <tr class="results-row">
                     <td colspan="2">
-                        <table id="results-table">
-                            <thead>
-                            <tr>
-                                <td>X</td>
-                                <td>Y</td>
-                                <td>R</td>
-                                <td>Попал</td>
-                                <td>Создано</td>
-                            </tr>
-                            </thead>
-                            <tbody>
-                                <script>
-                                    addPoint(1, 1, 1);
-                                    addPoint(2, 1, 2);
-                                </script>
-                            </tbody>
-                        </table>
+                        <h:dataTable id="results-table" var="point" value="#{pointCheckStorageController.getCheckPointList()}">
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="X"/>
+                                </f:facet>
+                                <h:outputText styleClass="table-x" value="#{point.x}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Y"/>
+                                </f:facet>
+                                <h:outputText styleClass="table-y" value="#{point.y}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="R"/>
+                                </f:facet>
+                                <h:outputText styleClass="table-r" value="#{point.r}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Попал"/>
+                                </f:facet>
+                                <h:outputText styleClass="table-hit" value="#{point.isHit}"/>
+                            </h:column>
+                        </h:dataTable>
                     </td>
                 </tr>
             </tbody>

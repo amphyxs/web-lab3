@@ -16,7 +16,7 @@ public class CheckPointController implements Serializable {
     private double x;
     private double y;
     private double r;
-    private boolean isInArea;
+    private boolean isHit;
 
     @Inject
     private PointCheckStorageController pointCheckStorageController;
@@ -25,9 +25,9 @@ public class CheckPointController implements Serializable {
         PointCheck pointCheckResult = new PointCheck();
         pointCheckResult.setX(x);
         pointCheckResult.setY(y);
-        pointCheckResult.setY(r);
+        pointCheckResult.setR(r);
+        pointCheckResult.setIsHit(PointChecker.isPointIsnideArea(x, y, r));
         pointCheckResult.setCreatedAt(new Date(System.currentTimeMillis()));
-        pointCheckResult.setHit(PointChecker.isPointIsnideArea(x, y, r));
 
         pointCheckStorageController.savePointCheck(pointCheckResult);
     }
@@ -56,11 +56,11 @@ public class CheckPointController implements Serializable {
         this.r = r;
     }
 
-    public boolean isInArea() {
-        return isInArea;
+    public boolean getIsHit() {
+        return isHit;
     }
 
-    public void setInArea(boolean inArea) {
-        isInArea = inArea;
+    public void setIsHit(boolean value) {
+        isHit = value;
     }
 }

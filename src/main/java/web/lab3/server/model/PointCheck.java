@@ -8,8 +8,8 @@ import java.util.Date;
 @Named
 public class PointCheck {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id", nullable=false, unique=true)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name="id", nullable=false)
     private int id;
 
     @Column(name="x", nullable=false)
@@ -69,11 +69,11 @@ public class PointCheck {
         this.r = r;
     }
 
-    public boolean isHit() {
+    public boolean getIsHit() {
         return isHit;
     }
 
-    public void setHit(boolean hit) {
+    public void setIsHit(boolean hit) {
         isHit = hit;
     }
 

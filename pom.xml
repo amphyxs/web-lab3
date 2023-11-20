@@ -69,6 +69,11 @@
             <artifactId>eclipselink</artifactId>
             <version>4.0.2</version>
         </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.6.0</version>
+        </dependency>
     </dependencies>
 
     <build>
