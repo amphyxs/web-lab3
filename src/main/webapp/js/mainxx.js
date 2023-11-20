@@ -10,6 +10,7 @@ const switchDisabledRButton = (buttonToDisable) => {
 window.onload = () => {
 
   const plot = new Plot(1, points);
+  document.getElementById('coords-form:r-coord-input-real').value = 1;
 
   document.getElementById('r-coord-input').childNodes.forEach(rButton => {
     rButton.addEventListener('click', (event) => {
