@@ -12,7 +12,7 @@ import java.util.List;
 @Named
 @ApplicationScoped
 public class PointCheckStorageController {
-    @PersistenceContext(unitName = "yourPersistenceUnitName")
+    @PersistenceContext(unitName = "default")
     private EntityManager entityManager;
 
     @Transactional
