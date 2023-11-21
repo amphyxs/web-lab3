@@ -15,9 +15,13 @@ const init = () => {
   const xInTable = getTableValues(document.getElementsByClassName('table-x'));
   const yInTable = getTableValues(document.getElementsByClassName('table-y'));
   const rInTable = getTableValues(document.getElementsByClassName('table-r'));
+  const createdAtInTable = document.getElementsByClassName('table-created-at');
 
   for (let i = 0; i < xInTable.length; i++) {
     addPoint(xInTable[i], yInTable[i], rInTable[i]);
+    const createdAtTimestamp = Number(createdAtInTable[i].innerText);
+    const date = new Date(createdAtTimestamp);
+    createdAtInTable[i].innerText = date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
   }
 
   const plot = new Plot(1, points);

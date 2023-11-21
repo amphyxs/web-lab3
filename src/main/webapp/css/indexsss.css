@@ -110,7 +110,7 @@ tfoot {
     height: 350px;
 }
 
-.results-row table thead td {
+.results-row table thead th {
     background-color: #4C566A;
     color: #81A1C1;
     font-size: 17pt;
