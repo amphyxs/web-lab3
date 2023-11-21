@@ -11,8 +11,7 @@ const getTableValues = (tableRows) => {
   return [...tableRows].map(row => row.innerText);
 }
 
-window.onload = () => {
-
+const init = () => {
   const xInTable = getTableValues(document.getElementsByClassName('table-x'));
   const yInTable = getTableValues(document.getElementsByClassName('table-y'));
   const rInTable = getTableValues(document.getElementsByClassName('table-r'));
@@ -33,5 +32,8 @@ window.onload = () => {
       document.getElementById('coords-form:r-coord-input-real').value = r;
     });
   });
+}
 
+window.onload = () => {
+  init();
 }

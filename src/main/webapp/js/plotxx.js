@@ -164,6 +164,10 @@ class Plot {
     });
     document.getElementById('coords-form:y-coord-input').value = this._cursorPosition.y;
   }
+
+  destroy() {
+    document.getElementsByClassName('function-plot')[0].remove();
+  }
 }
 
 const points = [];
