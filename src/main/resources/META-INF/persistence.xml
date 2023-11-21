@@ -10,8 +10,8 @@
         <properties>
             <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver" />
             <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/weblab3" />
-            <property name="jakarta.persistence.jdbc.user" value="postgres" />
-            <property name="jakarta.persistence.jdbc.password" value="aitip" />
+            <property name="jakarta.persistence.jdbc.user" value="user" />
+            <property name="jakarta.persistence.jdbc.password" value="user" />
 
             <!-- Настройки EclipseLink -->
             <property name="eclipselink.ddl-generation" value="create-or-extend-tables" />
