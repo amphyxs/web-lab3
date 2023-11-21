@@ -14,7 +14,7 @@ public class PointChecker {
 
     private static boolean isPointInsideRectangle(double x, double y, double r) {
         boolean isXInRange = (-r <= x) && (x <= 0);
-        boolean isYInRange = (0 <= y) && (y <= r / 2);
+        boolean isYInRange = (0 <= y) && (y <= r);
 
         return isXInRange && isYInRange;
     }
