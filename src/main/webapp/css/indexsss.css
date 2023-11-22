@@ -198,7 +198,7 @@ tfoot {
     text-align: start;
 }
 
-@media (max-width: 700px) {  /* Селектор дочерних элементов */
+@media (max-width: 900px) {  /* Селектор дочерних элементов */
     body > table > * > tr > td {
         display: block;
         margin-bottom: 10px;
