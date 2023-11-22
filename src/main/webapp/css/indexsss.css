@@ -83,6 +83,10 @@ form input:disabled {
     cursor: default !important;
 }
 
+form label {
+    color: #81A1C1;
+}
+
 .coords-btn {
     cursor: pointer;
     height: 34px;
