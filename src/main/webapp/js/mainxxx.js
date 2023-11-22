@@ -1,9 +1,9 @@
 
 let r = 1;
 
-const switchDisabledRButton = (buttonToDisable) => {
+const switchDisabledRButton = () => {
   document.getElementById('r-coord-input').childNodes.forEach(rButton => {
-    rButton.disabled = rButton === buttonToDisable;
+    rButton.disabled = rButton.value === r.toString();
   });
 }
 
@@ -25,14 +25,15 @@ const init = () => {
     createdAtInTable[i].innerText = date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
   }
 
-  const plot = new Plot(1, points);
-  document.getElementById('coords-form:r-coord-input-real').value = 1;
+  const plot = new Plot(r, points);
+  document.getElementById('coords-form:r-coord-input-real').value = r;
+  switchDisabledRButton();
 
   document.getElementById('r-coord-input').childNodes.forEach(rButton => {
     rButton.addEventListener('click', (event) => {
       event.preventDefault();
       r = event.target.value;
-      switchDisabledRButton(event.target);
+      switchDisabledRButton();
       plot.r = r;
       document.getElementById('coords-form:r-coord-input-real').value = r;
     });
