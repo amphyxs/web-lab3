@@ -15,10 +15,11 @@ const init = () => {
   const xInTable = getTableValues(document.getElementsByClassName('table-x'));
   const yInTable = getTableValues(document.getElementsByClassName('table-y'));
   const rInTable = getTableValues(document.getElementsByClassName('table-r'));
+  const hitInTable = getTableValues(document.getElementsByClassName('table-hit'));
   const createdAtInTable = document.getElementsByClassName('table-created-at');
 
   for (let i = 0; i < xInTable.length; i++) {
-    addPoint(xInTable[i], yInTable[i], rInTable[i]);
+    addPoint(xInTable[i], yInTable[i], rInTable[i], hitInTable[i] === 'true');
     const createdAtTimestamp = Number(createdAtInTable[i].innerText);
     const date = new Date(createdAtTimestamp);
     createdAtInTable[i].innerText = date.toLocaleDateString() + ' ' + date.toLocaleTimeString();

@@ -1,21 +1,9 @@
 class Point {
-  constructor(x, y, r) {
+  constructor(x, y, r, hit) {
     this.x = x;
     this.y = y;
     this.r = r;
-  }
-
-  get hit() {
-    const { x, y, r } = this;
-    if (x > 0 && y > 0) {
-      return y <= -x + (r / 2);
-    } else if (x <= 0 && y >= 0) {
-      return y <= r && x >= -r;
-    } else if (x < 0 && y < 0) {
-      return false;
-    } else {
-      return x**2 + y**2 <= r;
-    }
+    this.hit = hit;
   }
 
   _calculateCoordOnPlot(coord, plotR) {
@@ -172,6 +160,6 @@ class Plot {
 
 const points = [];
 
-const addPoint = (x, y, r) => {
-  points.push(new Point(x, y, r));
+const addPoint = (x, y, r, hit) => {
+  points.push(new Point(x, y, r, hit));
 }
