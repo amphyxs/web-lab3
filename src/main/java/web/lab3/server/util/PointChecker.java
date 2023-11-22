@@ -20,7 +20,7 @@ public class PointChecker {
     }
 
     private static boolean isPointInsideCircle(double x, double y, double r) {
-        boolean isXInRange = (0 <= x) && (x <= r / 2);
+        boolean isXInRange = (0 <= x) && (x <= r);
         boolean isYInRange = (-r <= y) && (y <= 0);
         boolean isFormula = (x * x + y * y) <= r * r;
 
